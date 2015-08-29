@@ -12,10 +12,11 @@ namespace Monopoly.ConsoleGame
             Console.Title = "Monopoly";
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"C:\Users\hpkel\Documents\Visual Studio 2015\Projects\Monopoly\DefaultMap1.xml");
-            XmlElement map = doc.SelectSingleNode("map") as XmlElement;
+            doc.Load(@"F:\Codes\MyMonopoly\DefaultMap1.xml");
+            XmlElement mapInfo = doc.SelectSingleNode("map") as XmlElement;
+            XmlElement playerInfo = doc.SelectSingleNode("players") as XmlElement;
             Game.AllGameEvents += AllGameEventHandler;
-            Game.Initialize(this, 2, map);
+            Game.Initialize(this, mapInfo, playerInfo);
 
             foreach (Player item in Game.Players)
             {

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<save continue="false">
+  <players count="2">
+    <player id="0" ai="false">
+      <name>Player A</name>
+    </player>
+    <player id="1" ai="true">
+      <name>Player B</name>
+    </player>
+  </players>
+  <map row="4" col="4">
+    <Estate id="1" row="0" col="1">
+      <name>Estate 1</name>
+    </Estate>
+    <News id="2" row="0" col="2" />
+    <Estate id="3" row="1" col="3">
+      <name>Estate 2</name>
+    </Estate>
+    <Casino id="4" row="2" col="3" />
+    <Bank id="5" row="3" col="2" />
+    <Estate id="6" row="3" col="1">
+      <name>Estate 3</name>
+    </Estate>
+    <Estate id="7" row="2" col="0">
+      <name>Estate 4</name>
+    </Estate>
+    <Bank id="8" row="1" col="0" />
+  </map>
+</save>

@@ -95,19 +95,20 @@ namespace Monopoly.Classes
             }
         }
 
-        public static void Initialize(IIo io, int playerCount, XmlElement map)
+        public static void Initialize(IIo io, XmlElement mapInfo, XmlElement playerInfo)
         {
             VerifyStage(GameStage.NotInitialized);
 
             _Io = io;
 
-            Map = new Map(map);
+            Map = new Map(mapInfo);
 
-            Players = new Player[playerCount];
-            for (int i = 0; i < playerCount; i++)
-            {
-                Players[i] = new Player(i);
-            }
+            //Players = new Player[playerCount];
+            //for (int i = 0; i < playerCount; i++)
+            //{
+            //    Players[i] = new Player(i);
+            //}
+
             _CurrentPlayerId = 0;
 
             Day = 1;
