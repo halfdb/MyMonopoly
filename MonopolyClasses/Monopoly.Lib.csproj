@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ai.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="GameEvent.cs" />
     <Compile Include="PlaceEvent.cs" />
