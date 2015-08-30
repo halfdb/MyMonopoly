@@ -13,10 +13,9 @@ namespace Monopoly.ConsoleGame
 
             XmlDocument doc = new XmlDocument();
             doc.Load(@"F:\Codes\MyMonopoly\DefaultMap1.xml");
-            XmlElement mapInfo = doc.SelectSingleNode("map") as XmlElement;
-            XmlElement playerInfo = doc.SelectSingleNode("players") as XmlElement;
+            XmlElement save = doc.SelectSingleNode("save") as XmlElement;
             Game.AllGameEvents += AllGameEventHandler;
-            Game.Initialize(this, mapInfo, playerInfo);
+            Game.Initialize(this, save);
 
             foreach (Player item in Game.Players)
             {

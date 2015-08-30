@@ -1,13 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <save continue="false">
+  
   <players count="2">
-    <player id="0" ai="false">
+    
+    <player id="0" ai="false" bankrupt="false">
       <name>Player A</name>
+      <coordinate>
+        <row>0</row>
+        <col>1</col>
+      </coordinate>
+      <properties>
+        <cash>30000</cash>
+        <savings>0</savings>
+      </properties>
     </player>
-    <player id="1" ai="true">
+    
+    <player id="1" ai="true" bankrupt="false">
       <name>Player B</name>
+      <coordinate>
+        <row>0</row>
+        <col>1</col>
+      </coordinate>
+      <properties>
+        <cash>30000</cash>
+        <savings>0</savings>
+      </properties>
     </player>
+    
   </players>
+  
   <map row="4" col="4">
     <Estate id="1" row="0" col="1">
       <name>Estate 1</name>
@@ -26,4 +47,5 @@
     </Estate>
     <Bank id="8" row="1" col="0" />
   </map>
+  
 </save>

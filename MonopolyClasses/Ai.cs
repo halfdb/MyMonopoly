@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Monopoly.Classes
 {
     class Ai : Player
     {
+
         protected Queue<bool> ConfirmResponses { get; set; }
         public override bool Confirm(string cue)
         {
@@ -25,23 +27,29 @@ namespace Monopoly.Classes
         }
 
         public Ai(int id)
-            :base(id)
+            : base(id)
         {
-            foreach(Place item in Game.Map.Places)
+            foreach (Place item in Game.Map.Places)
             {
-                if(item is Estate)
+                if (item is Estate)
                 {
                     (item as Estate).PlayerArrivedEvent += PlayerArrivedEventHandler;
                 }
-                else if(item is Bank)
+                else if (item is Bank)
                 {
                     (item as Bank).PlayerArrivedEvent += PlayerArrivedEventHandler;
                 }
-                else if(item is Casino)
+                else if (item is Casino)
                 {
                     (item as Casino).PlayerArrivedEvent += PlayerArrivedEventHandler;
                 }
             }
+        }
+
+        public Ai(int id, XmlElement detail)
+            : base(id, detail)
+        {
+
         }
 
         private void PlayerArrivedEventHandler(Casino sender, Place.PlayerArrivedEventArgs e)
@@ -71,7 +79,7 @@ namespace Monopoly.Classes
         {
             if (sender.Owner == this)
             {
-                if (Cash >= sender.Price * 2 && sender.Level < 6) 
+                if (Cash >= sender.Price * 2 && sender.Level < 6)
                 {
                     ConfirmResponses.Enqueue(true);
                 }

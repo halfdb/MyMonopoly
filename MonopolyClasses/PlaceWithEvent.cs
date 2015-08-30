@@ -168,7 +168,7 @@ namespace Monopoly.Classes
             result = new Estate(id);
             Estate obj = result as Estate;
             obj.Name = detail.SelectSingleNode("name").InnerText;
-            if ((detail.ParentNode as XmlElement).GetAttribute("continue") == "true")
+            if ((detail.ParentNode.ParentNode as XmlElement).GetAttribute("continue") == "true")
             {
                 obj.Owner = Game.Players[int.Parse(detail.SelectSingleNode("owner_id").InnerText)];
                 obj.Level = int.Parse(detail.SelectSingleNode("level").InnerText);

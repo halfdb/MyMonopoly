@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace Monopoly.Classes
 {
@@ -51,7 +52,43 @@ namespace Monopoly.Classes
             }
         }
 
-        protected HashSet<Estate> _Estates;
+        public Player(int id,XmlElement detail)
+            : this(id)
+        {
+            XmlNode name = detail.SelectSingleNode("name");
+            if (name != null)
+            {
+                Name = name.InnerText;
+            }
+
+            XmlNode coordinate = detail.SelectSingleNode("coordinate");
+            if (coordinate != null)
+            {
+                int row = int.Parse(coordinate.SelectSingleNode("row").InnerText);
+                int col = int.Parse(coordinate.SelectSingleNode("col").InnerText);
+                _Coordinate = new Tuple<int, int>(row, col);
+            }
+
+            IsBankrupted = bool.Parse(detail.GetAttribute("bankrupt"));
+
+            string direction = detail.GetAttribute("direction");
+            if (direction == "cw")
+            {
+                Direction = Direction.CW;
+            }
+            else
+            {
+                Direction = Direction.CCW;
+            }
+
+            XmlNode properties = detail.SelectSingleNode("properties");
+            if (properties != null)
+            {
+                int cash = int.Parse(properties.SelectSingleNode("cash").InnerText);
+                int savings = int.Parse(properties.SelectSingleNode("savings").InnerText);
+            }
+
+        }
 
         public Player(int id, string name = null, Tuple<int, int> coordinate = null, int cash = 30000, int saving = 0)
         {
@@ -62,12 +99,11 @@ namespace Monopoly.Classes
             }
             else
             {
-                Name = "Player " + (char)(id + 'A');
+                Name = "Player";
             }
             Cash = cash;
             Saving = saving;
             IsBankrupted = false;
-            _Estates = new HashSet<Estate>();
             Direction = Direction.CW;
             if (coordinate == null)
             {
@@ -156,7 +192,6 @@ namespace Monopoly.Classes
         public virtual void AddEstate(Estate e)
         {
             AddEstateEvent(this, new EstateEventArgs("Now you've got a new estate!", e));
-            _Estates.Add(e);
         }
 
         public virtual void BuyEstate(Estate e)
@@ -181,7 +216,6 @@ namespace Monopoly.Classes
             if (HasEstate(e))
             {
                 e.Owner = null;
-                _Estates.Remove(e);
                 RemoveEstateEvent(this, new EstateEventArgs("You have lost the estate.", e));
             }
         }
@@ -208,14 +242,13 @@ namespace Monopoly.Classes
                 if (!SpendSaving(rent))
                 {
                     IsBankrupted = true;
-                    //throw new NotImplementedException();//bankrupt
                 }
             }
         }
 
         public virtual bool HasEstate(Estate e)
         {
-            return _Estates.Contains(e);
+            return this == e.Owner;
         }
 
         public virtual void RevertDirection()
