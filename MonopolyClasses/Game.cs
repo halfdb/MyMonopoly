@@ -11,7 +11,7 @@ namespace Monopoly.Classes
     public enum GameStage
     {
         NotInitialized,
-        Start,
+        Initialized,
         InGame,
         Finish,
         Exception
@@ -95,29 +95,54 @@ namespace Monopoly.Classes
             }
         }
 
-        public static void Initialize(IIo io, int playerCount, XmlElement map)
+        [Serializable]
+        public class BadSaveException : Exception
+        {
+            
+        }
+
+        public static void Initialize(IIo io, XmlElement save)
         {
             VerifyStage(GameStage.NotInitialized);
 
             _Io = io;
 
-            Map = new Map(map);
-
-            Players = new Player[playerCount];
-            for (int i = 0; i < playerCount; i++)
+            XmlElement mapInfo, playersInfo;
+            try
             {
-                Players[i] = new Player(i);
+                mapInfo = save.SelectSingleNode("map") as XmlElement;
+                playersInfo = save.SelectSingleNode("players") as XmlElement;
+                Map = new Map(mapInfo);
+
+                Players = new Player[int.Parse(playersInfo.GetAttribute("count"))];
+                foreach (XmlElement item in playersInfo.ChildNodes)
+                {
+                    int id = int.Parse(item.GetAttribute("id"));
+                    if (item.GetAttribute("ai") == "true")
+                    {
+                        Players[id] = new Ai(id, item);
+                    }
+                    else
+                    {
+                        Players[id] = new Player(id, item);
+                    }
+                }
             }
+            catch
+            {
+                throw new BadSaveException();
+            }
+
             _CurrentPlayerId = 0;
 
             Day = 1;
 
-            Stage = GameStage.Start;
+            Stage = GameStage.Initialized;
         }
 
         public static void Start()
         {
-            VerifyStage(GameStage.Start);
+            VerifyStage(GameStage.Initialized);
 
             Stage = GameStage.InGame;
 

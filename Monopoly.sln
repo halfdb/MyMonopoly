@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.ConsoleGame", "Mon
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D10C4804-6EC9-4795-A544-DEF7F644D8E6}"
 	ProjectSection(SolutionItems) = preProject
-		DefaultMap1.xml = DefaultMap1.xml
+		DefaultNewGame.xml = DefaultNewGame.xml
 	EndProjectSection
 EndProject
 Global
