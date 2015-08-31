@@ -265,7 +265,7 @@ namespace Monopoly.Classes
             if (player.Confirm("I want to play a game..."))
             {
                 int invest = player.InputInt("How much do you want to bet?");
-                player.SpendCash(invest);
+                if (!player.SpendCash(invest)) return;
                 int revenue = Calculate(invest);
                 player.AddCash(revenue);
                 if (invest >= revenue)
