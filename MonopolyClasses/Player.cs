@@ -281,6 +281,7 @@ namespace Monopoly.Classes
                 }
                 steps--;
             }
+            Position = Position.Next(Direction);
             if (!(Position is Bank && bankTriggered))
             {
                 Position.Trigger(this);
