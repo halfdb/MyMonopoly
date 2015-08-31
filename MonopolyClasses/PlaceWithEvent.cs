@@ -1,5 +1,4 @@
 ﻿using System;
-using Monopoly.Classes.Interfaces;
 using System.Xml;
 
 namespace Monopoly.Classes
@@ -54,8 +53,8 @@ namespace Monopoly.Classes
                 Place prev = this, next = this;
                 for (int i = 1; i <= 5; i++)
                 {
-                    prev = this.Next(Direction.CCW);
-                    next = this.Next(Direction.CW);
+                    prev = prev.Next(Direction.CCW);
+                    next = next.Next(Direction.CW);
                     if (prev is Estate && (prev as Estate).Owner == Owner)
                     {
                         cnt++;

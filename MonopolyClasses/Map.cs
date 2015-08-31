@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Monopoly.Classes
@@ -60,68 +56,14 @@ namespace Monopoly.Classes
 
         }
 
-        /*
-        public Map(string mapPath)
-        {
-            _MaxId = 0;
-            StreamReader sr = new StreamReader(mapPath);
-
-            string line = sr.ReadLine();
-            bool extraInfo = false;
-            if (line == "1")
-            {
-                extraInfo = true;
-            }
-
-            ArrayList map = new ArrayList();
-            line = sr.ReadLine();
-            Col = line.Length / 2;
-
-            Place[] placeRow = new Place[Col];
-            for (int i = 0; i < Col; i++)
-            {
-                int id = line[2 * i];
-                PlaceType type = (PlaceType)(line[2 * i + 1]);
-                placeRow[i] = Place.NewInstance(id, type);
-            }
-            map.Add(placeRow);
-
-            while (!sr.EndOfStream)
-            {
-                line = sr.ReadLine();
-                placeRow = new Place[Col];
-                for (int i = 0; i < Col; i++)
-                {
-                    int id = line[2 * i];
-                    if (_MaxId < id)
-                    {
-                        _MaxId = id;
-                    }
-                    PlaceType type = (PlaceType)(line[2 * i + 1]);
-                    placeRow[i] = Place.NewInstance(id, type);
-                }
-                map.Add(placeRow);
-            }
-
-            Row = map.Count;
-            Places = (Place[,])map.ToArray(typeof(Place[]));
-
-            if (extraInfo)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        */
-
         public Place FindPlace(int id)
         {
-            //Console.WriteLine("finding place with id "+id);
+            //Console.WriteLine("finding place with id " + id);
             if (id == 0)
             {
                 return FindPlace(_MaxId);
             }
-            if (id == _MaxId)
+            if (id == _MaxId + 1)
             {
                 return FindPlace(1);
             }

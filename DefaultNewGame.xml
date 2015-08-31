@@ -3,7 +3,7 @@
   
   <players count="2">
     
-    <player id="0" ai="false" bankrupt="false">
+    <player id="0" ai="false" bankrupt="false" direction="cw">
       <name>Player A</name>
       <coordinate>
         <row>0</row>
@@ -15,7 +15,7 @@
       </properties>
     </player>
     
-    <player id="1" ai="true" bankrupt="false">
+    <player id="1" ai="true" bankrupt="false" direction="cw">
       <name>Player B</name>
       <coordinate>
         <row>0</row>

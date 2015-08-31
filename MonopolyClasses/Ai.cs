@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Monopoly.Classes
@@ -29,6 +26,9 @@ namespace Monopoly.Classes
         public Ai(int id)
             : base(id)
         {
+            ChooseResponses = new Queue<int>();
+            ConfirmResponses = new Queue<bool>();
+            InputIntResponses = new Queue<int>();
             foreach (Place item in Game.Map.Places)
             {
                 if (item is Estate)
@@ -49,16 +49,35 @@ namespace Monopoly.Classes
         public Ai(int id, XmlElement detail)
             : base(id, detail)
         {
-
+            ChooseResponses = new Queue<int>();
+            ConfirmResponses = new Queue<bool>();
+            InputIntResponses = new Queue<int>();
+            foreach (Place item in Game.Map.Places)
+            {
+                if (item is Estate)
+                {
+                    (item as Estate).PlayerArrivedEvent += PlayerArrivedEventHandler;
+                }
+                else if (item is Bank)
+                {
+                    (item as Bank).PlayerArrivedEvent += PlayerArrivedEventHandler;
+                }
+                else if (item is Casino)
+                {
+                    (item as Casino).PlayerArrivedEvent += PlayerArrivedEventHandler;
+                }
+            }
         }
 
         private void PlayerArrivedEventHandler(Casino sender, Place.PlayerArrivedEventArgs e)
         {
+            if (e.Player != this) return;
             ConfirmResponses.Enqueue(false);
         }
 
         private void PlayerArrivedEventHandler(Bank sender, Place.PlayerArrivedEventArgs e)
         {
+            if (e.Player != this) return;
             int amount = (Saving - 2 * Cash) / 3;
             if (amount != 0)
             {
@@ -77,6 +96,7 @@ namespace Monopoly.Classes
 
         private void PlayerArrivedEventHandler(Estate sender, Place.PlayerArrivedEventArgs e)
         {
+            if (e.Player != this) return;
             if (sender.Owner == this)
             {
                 if (Cash >= sender.Price * 2 && sender.Level < 6)

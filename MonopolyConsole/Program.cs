@@ -12,7 +12,7 @@ namespace Monopoly.ConsoleGame
             Console.Title = "Monopoly";
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"F:\Codes\MyMonopoly\DefaultMap1.xml");
+            doc.Load(@"F:\Codes\MyMonopoly\DefaultNewGame.xml");
             XmlElement save = doc.SelectSingleNode("save") as XmlElement;
             Game.AllGameEvents += AllGameEventHandler;
             Game.Initialize(this, save);
@@ -68,7 +68,7 @@ namespace Monopoly.ConsoleGame
                     }
                     break;
                 }
-                catch (Exception e)
+                catch
                 {
                     Console.WriteLine("Please retry...");
                 }
